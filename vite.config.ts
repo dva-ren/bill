@@ -51,4 +51,12 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
   },
+  css: {
+    preprocessorOptions: {
+      less: {
+        charset: false,
+        additionalData: `@import "${path.resolve(__dirname, 'src/styles/common.less')}";`,
+      },
+    },
+  },
 })
