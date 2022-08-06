@@ -1,0 +1,13 @@
+.base-amount {
+  color: #000000;
+  font-size: x-large;
+  font-weight: bold;
+}
+.base-amount span:nth-child(2) {
+  font-size: small;
+}
+.title {
+  font-size: large;
+  font-weight: bold;
+  margin-bottom: 0.6rem;
+}

@@ -1,5 +1,6 @@
 @primary-0: #3BCEB1;
 @primary-1: #47C6A8;
+@primary-3: #b8ebe2;
 @primary-8: #EBF5F3;
 @primary-2: #ED5758;
 @gray-0: #DDDDDD;
@@ -7,3 +8,22 @@
 @gray-2: #838383;
 @gray-10: #000000;
 @gray-bg: #FAFAFA;
+
+
+.base-amount{
+  color: @gray-10;
+  font-size: x-large;
+  font-weight: bold;
+
+  span{
+    &:nth-child(2){
+      font-size: small;
+    }
+  }
+}
+
+.title {
+  font-size: large;
+  font-weight: bold;
+  margin-bottom: .6rem;
+}
