@@ -15,7 +15,7 @@ const dashArrayWidth = computed(() => ({
 <template>
   <div class="info-card">
     <div class="info-container">
-      <div class="title">
+      <div class="base-title">
         本月支出
       </div>
       <div class="info">
@@ -73,6 +73,7 @@ const dashArrayWidth = computed(() => ({
       display: flex;
       justify-content: space-between;
       .info-item {
+        font-size: .8rem;
         color: @gray-1;
         text-align: center;
       }

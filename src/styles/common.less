@@ -1,6 +1,7 @@
 @primary-0: #3BCEB1;
 @primary-1: #47C6A8;
 @primary-3: #b8ebe2;
+@primary-4: #438883;
 @primary-8: #EBF5F3;
 @primary-2: #ED5758;
 @gray-0: #DDDDDD;
@@ -11,7 +12,6 @@
 
 
 .base-amount{
-  color: @gray-10;
   font-size: x-large;
   font-weight: bold;
 
@@ -22,8 +22,16 @@
   }
 }
 
-.title {
-  font-size: large;
+.money{
+  &::before{
+    content: '¥';
+    // font-size: 1rem;
+    margin-right: .3rem;
+  }
+}
+
+.base-title {
+  // font-size: 1rem;
   font-weight: bold;
   margin-bottom: .6rem;
 }

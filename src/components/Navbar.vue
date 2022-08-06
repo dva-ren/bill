@@ -1,23 +1,36 @@
 <script lang="ts" setup>
 const route = useRoute()
+const router = useRouter()
+const showPopup = ref(false)
+
+const go = (path: string) => {
+  router.push(path)
+  showPopup.value = false
+}
 </script>
 
 <template>
   <div class="nav">
     <RouterLink to="/" class="nav-item" :class="{ active: route.path === '/' }">
       <div class="icon" i-carbon-align-box-top-center />
-      <div>记账</div>
+      <div>账单</div>
     </RouterLink>
+    <RouterLink to="/manyBills" class="nav-item" :class="{ active: route.path === '/manyBills' }">
+      <div class="icon" i-carbon-fade />
+      <div>多人账单</div>
+    </RouterLink>
+    <div class="add-btn">
+      <div class="icon" :class="{ 'rote-icon': showPopup }" i-carbon-add @click="showPopup = !showPopup" />
+      <button v-show="showPopup" class="popup-btn left-btn" @click="go('/add')">
+        普通账单
+      </button>
+      <button v-show="showPopup" to="/add" class="popup-btn right-btn" @click="go('/add')">
+        多人账单
+      </button>
+    </div>
     <RouterLink to="/statistical" class="nav-item" :class="{ active: route.path === '/statistical' }">
       <div class="icon" i-carbon-chart-histogram />
       <div>统计</div>
-    </RouterLink>
-    <button class="add-btn">
-      <div class="icon" i-carbon-add />
-    </button>
-    <RouterLink to="/other" class="nav-item" :class="{ active: route.path === '/other' }">
-      <div class="icon" i-carbon-fade />
-      <div>其他</div>
     </RouterLink>
     <RouterLink to="/mine" class="nav-item" :class="{ active: route.path === '/mine' }">
       <div class="icon" i-carbon-view-mode-2 />
@@ -53,7 +66,16 @@ const route = useRoute()
   .active{
     color:@primary-1;
   }
+  .add-btn, .left-btn,.right-btn{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    transform: translateY(-1rem);
+    box-shadow: 0 0 10px @primary-0;
+    border: 1px solid rgb(209, 209, 209);
+  }
   .add-btn{
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -63,8 +85,50 @@ const route = useRoute()
     height: 3rem;
     border-radius: 50%;
     transform: translateY(-1rem);
+    box-shadow: 0 0 10px @primary-0;
+    border: 1px solid rgb(209, 209, 209);
     .icon{
       color:#fff;
+      transition: .2s;
+    }
+    .rote-icon{
+      transform: rotate(135deg);
+    }
+    .popup-btn{
+      font-size: small;
+      position: absolute;
+    }
+    .left-btn{
+      top: -50%;
+      left: -80%;
+      animation: show-popup-left .2s linear;
+    }
+    .right-btn{
+      top: -50%;
+      right: -80%;
+      animation: show-popup-right .2s linear;
+    }
+    @keyframes show-popup-left {
+      0%{
+        opacity: 0;
+        top: 0;
+        left: 0;
+      }
+      100%{
+        top: -50%;
+        left: -80%;
+      }
+    }
+    @keyframes show-popup-right {
+      0%{
+        opacity: 0;
+        top: 0;
+        right: 0;
+      }
+      100%{
+        top: -50%;
+        right: -80%;
+      }
     }
   }
 }

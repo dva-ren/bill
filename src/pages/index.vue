@@ -1,27 +1,38 @@
 <script setup lang="ts">
-
+useTitle('账单')
 </script>
 
 <template>
-  <div>
-    <Topbar title="记账" />
+  <div class="box">
+    <Topbar title="账单" />
     <div class="bill">
-      <div class="count">
-        <div class="count-card">
-          <div>当月总支出(元)</div>
-          <div class="amount" font-mono>
-            <span>6666</span>
-            <span style="font-size: small;">.26</span>
-          </div>
-          <div>当月总收入 ￥1520.00</div>
+      <div style="font-size: small;margin-bottom: .5rem;">
+        下午好,
+      </div>
+      <div style="font-weight: bold;">
+        现在的魏无羡，离开了蓝忘机就不行。 --魔道祖师
+      </div>
+      <div class="count-card">
+        <div>余额</div>
+        <div class="base-amount money" style="color: #fff;">
+          <span>5000</span>
+          <span>.00</span>
         </div>
-        <div class="count-card">
-          <div>当月预算(元)</div>
-          <div class="amount">
-            <span>6666</span>
-            <span style="font-size: small;">.26</span>
+        <div class="item-container">
+          <div class="item">
+            <div>总收入</div>
+            <div class="money amount">
+              <span>5000</span>
+              <span>.00</span>
+            </div>
           </div>
-          <div>当月总收入 ￥1200.00</div>
+          <div class="item">
+            <div>总支出</div>
+            <div class="money amount">
+              <span>5000</span>
+              <span>.00</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="bill-container">
@@ -56,30 +67,36 @@
 </template>
 
 <style lang="less" scoped>
+.box{
+  background: linear-gradient(#429691,#2A7C76);
+  background-size: 100% 15rem;
+  background-repeat: no-repeat;
+}
 .bill {
   padding: 1rem;
-  .count {
-    display: flex;
-    gap: .5rem;
+  color:#fff;
 
-    .count-card {
-      flex: 1;
+  .count-card{
+    background-color: #429691;
+    padding: 1rem;
+    margin-top: 2rem;
+    border-radius: .4rem;
+    font-size: small;
+    box-shadow: 0 2px 10px #429691;
+    border: 1px solid rgb(107, 151, 134);
+    .item-container{
+      display: flex;
+      justify-content: space-between;
+      color: @gray-0;
       padding: 1rem;
-      border-radius: .2rem;
-      font-size: small;
-      color: rgba(255, 255, 255, .7);
-      background: linear-gradient(@primary-0, @primary-1);
-
-      .amount {
-        padding-top: .5rem;
-        font-size: 2rem;
-        font-weight: 600;
-        color: #fff;
-        letter-spacing: 1px;
-        &::before {
-          content: '￥';
-          font-size: 1rem;
-          font-weight: 400;
+      padding-bottom: 0;
+      .item{
+        .amount{
+          color: #fff;
+          font-size: 1.2rem;
+          span:nth-child(2){
+            font-size: small;
+          }
         }
       }
     }
