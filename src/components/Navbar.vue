@@ -45,6 +45,7 @@ const go = (path: string) => {
 <style scoped lang="less">
 .nav{
   position: fixed;
+  z-index: 99;
   width: 100%;
   // height: 3rem;
   bottom: 0;
