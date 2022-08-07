@@ -55,6 +55,7 @@ onMounted(() => {
 <template>
   <div>
     <Topbar title="记账" />
+    <Navbar />
     <div class="bill">
       <div class="count">
         <div class="count-card">

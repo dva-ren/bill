@@ -5,6 +5,7 @@ useTitle('账单')
 <template>
   <div class="box">
     <Topbar title="账单" />
+    <Navbar />
     <div class="bill">
       <div style="font-size: small;margin-bottom: .5rem;">
         下午好,
@@ -81,7 +82,7 @@ useTitle('账单')
     padding: 1rem;
     margin-top: 2rem;
     border-radius: .4rem;
-    font-size: small;
+    font-size: @font-size-sm;
     box-shadow: 0 2px 10px #429691;
     border: 1px solid rgb(107, 151, 134);
     .item-container{
@@ -93,9 +94,9 @@ useTitle('账单')
       .item{
         .amount{
           color: #fff;
-          font-size: 1.2rem;
+          font-size: @font-size-lg;
           span:nth-child(2){
-            font-size: small;
+            font-size: @font-size-sm;
           }
         }
       }
@@ -105,14 +106,14 @@ useTitle('账单')
     margin-top: 2rem;
     .select{
       color: gray-1;
-      font-size: small;
+      font-size: @font-size-sm;
       margin: .6rem 0;
       button{
         width: 3rem;
       }
       .active{
         font-weight: 600;
-        font-size: larger;
+        font-size: @font-size-base;
         color: @gray-10;
       }
     }
@@ -120,7 +121,7 @@ useTitle('账单')
       display: flex;
       gap: .5rem;
       align-items: flex-end;
-      font-size: small;
+      font-size: @font-size-xs;
       color: @gray-0;
       .amount{
         color:@gray-1;

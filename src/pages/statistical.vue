@@ -62,6 +62,7 @@ function init() {
 <template>
   <div>
     <Topbar title="统计" />
+    <Navbar />
     <div class="container">
       <div flex gap-2 items-end>
         <div text-xl color-green>

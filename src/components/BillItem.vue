@@ -37,18 +37,18 @@
   .info{
     flex:1;
     color: @gray-1;
-    font-size: small;
+    font-size: @font-size-sm;
     .name{
-      font-size: 1rem;
+      font-size: @font-size-base;
       color: @gray-10;
       font-weight: 600;
     }
   }
   .amount{
-    font-size: x-large;
+    font-size: @font-size-lg;
     color: @primary-0;
     .decimal{
-      font-size: small;
+      font-size: @font-size-sm;
     }
   }
 }
