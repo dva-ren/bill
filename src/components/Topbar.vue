@@ -25,14 +25,15 @@ const emits = defineEmits(['onBack', 'onFinish'])
       {{ props.title }}
     </div>
     <div>
-      <button v-show="props.finish" i-carbon-checkmark class="finish-btn" @click="emits('onFinish')" />
+      <div v-show="props.finish" class="finish-btn" @click="emits('onFinish')">
+        完成
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="less">
 .topbar{
-  font-weight: bold;
   font-size: large;
   padding: .5rem;
   display: flex;
@@ -41,11 +42,15 @@ const emits = defineEmits(['onBack', 'onFinish'])
     min-width: 3rem;
   }
   .title{
+    font-weight: bold;
     text-align: center;
   }
-  .finish-btn,.back-btn{
+  .back-btn{
     font-size: 1.5rem;
     padding: .5rem 1rem;
+  }
+  .finish-btn{
+    color: @primary-1;
   }
 }
 </style>

@@ -1,25 +1,36 @@
 export const categoryes = {
   food: {
-    icon: '',
+    icon: 'shiwu',
+    name: '餐饮',
+  },
+  life: {
+    icon: 'shenghuojiaofei',
+    name: '生活缴费',
   },
   shopping: {
-    icon: 'i-carbon-shopping-catalog',
+    icon: 'gouwudai',
     name: '购物',
   },
   transport: {
-    icon: 'i-carbon-bus',
+    icon: 'jiaotongfei',
     name: '交通',
   },
-
+  other: {
+    icon: 'ico_e_advice',
+    name: '其他',
+  },
 }
 
-export interface BillItem {
+export interface Record {
   id: number
-  type: string
+  type: 'expend' | 'income'
   amount: number
   date: string
   category: string
-  description?: string
+  remark?: string
+}
+export interface MultiUserRecord extends Record {
+  users: string[]
 }
 
 // export type BillType = 'income' | 'expense'

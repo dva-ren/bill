@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { createPinia } from 'pinia'
 import routes from 'virtual:generated-pages'
 import App from './App.vue'
+import './assets/icons/iconfont.js'
 
 import '@unocss/reset/tailwind.css'
 import './styles/main.css'

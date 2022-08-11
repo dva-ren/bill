@@ -1,5 +1,19 @@
 <script setup lang="ts">
+import { useMainStore } from '~/store'
+import { amountToArray } from '~/composables/amountFormat'
 useTitle('账单')
+const mainStore = useMainStore()
+
+const amountCount = computed(() => {
+  let expend = 0; let income = 0
+  mainStore.recordList.usually.forEach((item) => {
+    if (item.type === 'expend')
+      expend += item.amount
+    else
+      income += item.amount
+  })
+  return { expend, income }
+})
 </script>
 
 <template>
@@ -23,15 +37,15 @@ useTitle('账单')
           <div class="item">
             <div>总收入</div>
             <div class="money amount">
-              <span>5000</span>
-              <span>.00</span>
+              <span>{{ amountToArray(amountCount.income)[0] }}</span>
+              <span>.{{ amountToArray(amountCount.income)[1] }}</span>
             </div>
           </div>
           <div class="item">
             <div>总支出</div>
             <div class="money amount">
-              <span>5000</span>
-              <span>.00</span>
+              <span>{{ amountToArray(amountCount.expend)[0] }}</span>
+              <span>.{{ amountToArray(amountCount.expend)[1] }}</span>
             </div>
           </div>
         </div>
@@ -53,13 +67,13 @@ useTitle('账单')
             </div>
             <div class="info">
               <span>收</span>
-              <span class="amount">250.00</span>
+              <span class="amount">{{ amountCount.income }}</span>
               <span>支</span>
-              <span class="amount">200.00</span>
+              <span class="amount">{{ amountCount.expend }}</span>
             </div>
           </div>
           <div>
-            <BillItem v-for="i in 5" :key="i" />
+            <BillItem v-for="i in mainStore.recordList.usually" :key="i.id" :data="i" />
           </div>
         </div>
       </div>
@@ -72,6 +86,8 @@ useTitle('账单')
   background: linear-gradient(#429691,#2A7C76);
   background-size: 100% 15rem;
   background-repeat: no-repeat;
+  padding-bottom: 2rem;
+  box-sizing: border-box;
 }
 .bill {
   padding: 1rem;

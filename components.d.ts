@@ -8,12 +8,12 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     BillItem: typeof import('./src/components/BillItem.vue')['default']
+    CheckBox: typeof import('./src/components/m-input/CheckBox.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
     InfoCard: typeof import('./src/components/InfoCard.vue')['default']
-    MInput: typeof import('./src/components/m-input.vue')['default']
+    MInput: typeof import('./src/components/m-input/m-input.vue')['default']
     Navbar: typeof import('./src/components/Navbar.vue')['default']
-    NumberKeyboard: typeof import('./src/components/NumberKeyboard.vue')['default']
-    NumberKeybord: typeof import('./src/components/NumberKeybord.vue')['default']
+    NumberKeyboard: typeof import('./src/components/m-input/NumberKeyboard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Topbar: typeof import('./src/components/Topbar.vue')['default']

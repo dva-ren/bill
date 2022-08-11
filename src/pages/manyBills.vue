@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import { useMainStore } from '~/store'
+
 const selected = ref('all')
 const box = ref<HTMLElement>()
 useTitle('多人账单')
+const mainStore = useMainStore()
 const changeSelect = (s: 'all' | 'time') => {
   if (s === selected.value)
     return
@@ -91,7 +94,7 @@ onMounted(() => {
         </div>
         <div ref="box" class="container">
           <div class="bill-list">
-            <BillItem v-for="i in 5" :key="i" />
+            <BillItem v-for="i in mainStore.recordList.multiUser" :key="i" />
           </div>
           <div class="bill-list">
             <div class="info-bar">
@@ -109,7 +112,7 @@ onMounted(() => {
               </div>
             </div>
             <div>
-              <BillItem v-for="i in 5" :key="i" />
+              <BillItem v-for="i in mainStore.recordList.multiUser" :key="i" />
             </div>
           </div>
         </div>

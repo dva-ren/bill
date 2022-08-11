@@ -1,38 +1,58 @@
 <script lang="ts" setup>
-// const props = defineProps<{
+import type { Record } from '~/types'
+import { categoryes } from '~/types'
+import { amountToArray } from '~/composables/amountFormat'
+const props = defineProps<{
+  data: Record
+}>()
 
-// }>()
+const amount = computed(() => amountToArray(props.data.amount))
 </script>
 
 <template>
   <div class="bill-item">
-    <div class="icon" i-carbon-cabin-care-alt text-green />
+    <div class="icon">
+      <svg class="icon-font" aria-hidden="true">
+        <use :xlink:href="`#icon-${categoryes[props.data.category].icon}`" />
+      </svg>
+    </div>
     <div class="info">
       <div class="name">
-        购物
+        {{ props.data.remark || categoryes[props.data.category].name }}
       </div>
-      <div>10:36:00</div>
+      <div>{{ props.data.date }}</div>
     </div>
-    <div class="amount">
-      <span>-</span>
-      <span>38</span>
-      <span class="decimal">.00</span>
+    <div class="amount" :style="{ color: props.data.type === 'expend' ? '' : '#ed5a65' }">
+      <span>{{ props.data.type === 'expend' ? '-' : '+' }}</span>
+      <span>{{ amount[0] }}</span>
+      <span class="decimal">.{{ amount[1] || '00' }}</span>
     </div>
   </div>
 </template>
 
 <style scoped lang="less">
+.icon-font {
+  width: 2.2rem;
+  height: 2.2rem;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
 .bill-item{
   display: flex;
   align-items: center;
   padding: .5rem;
+  gap: .8rem;
   .icon{
-    margin: .5rem;
-    width: 2rem;
-    height: 2rem;
+    // margin: .5rem;
+    // width: 2rem;
+    // height: 2rem;
     border: .5rem;
-    color:red;
-    // background-color: @primary-8;
+    background-color: @primary-8;
+    border-radius: .5rem;
+    .iconfont{
+      font-size: 2rem;
+    }
   }
   .info{
     flex:1;

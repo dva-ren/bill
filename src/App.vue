@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import { useMainStore } from './store'
+const mainStore = useMainStore()
+mainStore.init()
+</script>
+
 <template>
   <main text="gray-700 dark:gray-200">
     <router-view />
