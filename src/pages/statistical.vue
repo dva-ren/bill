@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import * as echarts from 'echarts'
+import { categoryes } from '~/types'
 useTitle('账单统计')
 const main = ref()
 onMounted(
@@ -98,14 +99,18 @@ function init() {
           支出排行
         </div>
         <div class="item-container">
-          <div v-for="i in 4" :key="i" class="item">
-            <div i-carbon-airline-digital-gate text-xl class="icon" />
+          <div v-for="i, k in categoryes" :key="k" class="item">
+            <div class="icon">
+              <svg class="icon-font" aria-hidden="true">
+                <use :xlink:href="`#icon-${i.icon}`" />
+              </svg>
+            </div>
             <div class="item-right">
               <div class="base-title">
-                购物&nbsp;&nbsp;{{ i * 10 }}%
+                {{ i.name }}&nbsp;&nbsp;{{ Math.floor(Math.random() * 100) }}%
               </div>
               <div class="process-bar">
-                <div class="bar" :style="{ width: `${i * 10}%` }">
+                <div class="bar" :style="{ width: `${Math.floor(Math.random() * 100)}%` }">
                   <div />
                 </div>
               </div>
@@ -156,8 +161,9 @@ function init() {
         gap: .5rem;
 
         .icon {
-          font-size: 1.5rem;
-          color: @primary-1;
+          border: .5rem;
+          background-color: @primary-8;
+          border-radius: .5rem;
         }
 
         .item-right {

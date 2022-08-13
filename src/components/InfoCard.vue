@@ -2,7 +2,7 @@
 // const props = defineProps<{
 
 // }>()
-const num = ref(10)
+const num = ref(Math.floor(Math.random() * 100))
 const line = 2 * Math.PI * 26
 
 const dashArrayWidth = computed(() => ({
@@ -43,7 +43,7 @@ const dashArrayWidth = computed(() => ({
     </div>
     <div class="proportion">
       <div class="percentage">
-        5%
+        {{ num }}%
       </div>
       <svg width="100px" height="100px" class="svg">
         <!-- 外圈圆 -->

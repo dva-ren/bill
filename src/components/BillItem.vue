@@ -31,13 +31,6 @@ const amount = computed(() => amountToArray(props.data.amount))
 </template>
 
 <style scoped lang="less">
-.icon-font {
-  width: 2.2rem;
-  height: 2.2rem;
-  vertical-align: -0.15em;
-  fill: currentColor;
-  overflow: hidden;
-}
 .bill-item{
   display: flex;
   align-items: center;

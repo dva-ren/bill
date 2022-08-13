@@ -5,7 +5,7 @@ const props = defineProps({
     type: [String, Number],
   },
   type: {
-    type: String as PropType<'text' | 'number' | 'checkBox'>,
+    type: String as PropType<'text' | 'number' | 'checkBox' | 'time' | 'date'>,
     default: 'text',
   },
   allowClear: {
@@ -39,6 +39,7 @@ const showKeyBoard = ref(false)
 const inputValue = ref(props.modelValue || '')
 const showOptions = ref(false)
 const showClear = computed(() => inputValue.value.length > 0 && props.allowClear)
+const showPopup = ref(false)
 
 const onInput = (e) => {
   let v = e.target.value
@@ -59,6 +60,18 @@ const onFocus = () => {
   inputFocus.value = true
   if (props.type === 'number' && props.numberKeyboard)
     showKeyBoard.value = true
+  else if (props.type === 'checkBox')
+    showOptions.value = true
+  else if (props.type === 'date')
+    showPopup.value = true
+}
+const onBlur = () => {
+  inputFocus.value = false
+  // 延迟关闭，防止点击选项时，关闭
+  setTimeout(() => {
+    showOptions.value = false
+  }, 200)
+  showPopup.value = false
 }
 const onOptionClick = (o) => {
   inputValue.value = o.name
@@ -77,7 +90,7 @@ watch(inputValue, () => {
     </div>
     <div class="input-container" :class="{ focus: inputFocus }">
       <slot name="prefix" />
-      <input class="input" :placeholder="props.placeholder" :value="inputValue" :type="props.type === 'checkBox' ? 'text' : props.type" @input="onInput" @focus="onFocus" @blur="inputFocus = false">
+      <input class="input" :placeholder="props.placeholder" :value="inputValue" :type="props.type === 'number' ? 'number' : 'text'" @input="onInput" @focus="onFocus" @blur="onBlur">
       <slot name="suffix">
         <template v-if="props.type === 'text'">
           <button v-show="showClear" class="clear animate__animated animate__fadeIn" i-carbon-close-outline @click="clear" />
@@ -98,6 +111,9 @@ watch(inputValue, () => {
         </div>
       </div>
     </div>
+    <Popup v-if="props.type === 'date'" v-model="showPopup">
+      1111
+    </Popup>
   </div>
 </template>
 
@@ -148,12 +164,15 @@ watch(inputValue, () => {
   }
 }
 .options{
+  box-sizing: border-box;
   position: fixed;
   right: 0;
-  padding: 0 .8rem;
+  padding: 0 .9rem;
   width: 100%;
   z-index: 99;
   .options-container{
+    border: 1px solid #0000001a;
+    box-shadow: 0 4px 10px #0000001a;
     background-color: #fff;
     .option-item{
       padding: .5rem 1rem;

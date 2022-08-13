@@ -6,7 +6,7 @@ const form = reactive({
   category: '',
   type: 'expend' as 'expend' | 'income',
   amount: 0,
-  date: '',
+  date: new Date().toLocaleDateString(),
   remark: '',
 })
 const categoryValue = ref('')
@@ -67,7 +67,7 @@ const onOptionClick = (o) => {
         </m-input>
       </div>
       <div class="form-item">
-        <m-input v-model="form.date" label="时间" placeholder="选择时间" type="text" />
+        <m-input v-model="form.date" label="时间" placeholder="选择时间" type="date" />
       </div>
       <div class="form-item">
         <m-input v-model="form.remark" label="备注" placeholder="备注（可选）" type="text" />
