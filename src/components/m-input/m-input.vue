@@ -71,7 +71,6 @@ const onBlur = () => {
   setTimeout(() => {
     showOptions.value = false
   }, 200)
-  showPopup.value = false
 }
 const onOptionClick = (o) => {
   inputValue.value = o.name
@@ -112,7 +111,7 @@ watch(inputValue, () => {
       </div>
     </div>
     <Popup v-if="props.type === 'date'" v-model="showPopup">
-      1111
+      <DatePicker @change="handleChange" />
     </Popup>
   </div>
 </template>

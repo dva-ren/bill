@@ -9,6 +9,10 @@ const props = defineProps({
 const emits = defineEmits(['update:modelValue'])
 const closed = ref(false)
 
+const onPopupClick = (e: MouseEvent) => {
+  if (e.target === e.currentTarget)
+    closed.value = true
+}
 const onAnimationend = (e) => {
   if (!closed.value)
     return
@@ -19,7 +23,7 @@ const onAnimationend = (e) => {
 
 <template>
   <Teleport to="body">
-    <div v-show="props.modelValue" class="popup" @click="closed = true">
+    <div v-show="props.modelValue" class="popup" @click="onPopupClick">
       <div class="content-container" :class="{ animate__fadeOut: closed }" @animationend="onAnimationend">
         <slot />
       </div>
@@ -49,13 +53,13 @@ const onAnimationend = (e) => {
   box-shadow: 0 0 .2rem rgba(0, 0, 0, .1);
   // transform: translateY(100%);
   transition: .2s;
-  animation: fadeIn .3s ease-in-out;
+  animation: fadeIn .2s ease-in-out;
 }
 .animate__fadeIn {
-  --animate-duration: .3s;
+  --animate-duration: .2s;
 }
 .animate__fadeOut {
-  animation: fadeOut .3s ease-in-out;
+  animation: fadeOut .2s ease-in-out;
 }
 
 @keyframes fadeIn{
