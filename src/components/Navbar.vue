@@ -23,7 +23,7 @@ const go = (path: string) => {
       <div>多人账单</div>
     </RouterLink>
     <div class="add-btn">
-      <div class="icon" :class="{ 'rote-icon': showPopup }" i-carbon-add @click="showPopup = !showPopup" />
+      <div class="icon" :class="{ 'rote-icon': showPopup }" i-carbon-add @click="go('/add')" />
       <button v-show="showPopup" class="popup-btn left-btn" @click="go('/add')">
         普通
       </button>

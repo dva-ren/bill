@@ -1,5 +1,5 @@
 .base-amount {
-  font-size: x-large;
+  font-size: 1rem;
   font-weight: bold;
 }
 .base-amount span:nth-child(2) {

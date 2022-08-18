@@ -2,6 +2,18 @@
 // const props = defineProps<{
 
 // }>()
+import { useMainStore } from '~/store'
+
+const mainStore = useMainStore()
+const usuallyRecord = computed(() => mainStore.recordList.usually)
+const averageExpend = computed(() => {
+  const res = usuallyRecord.value.filter(r => r.type === 'expend')
+  return (res.reduce((acc, cur) => acc + cur.amount, 0) / new Date().getMonth()).toFixed(2)
+})
+const totalExpenses = computed(() => {
+  const res = usuallyRecord.value.filter(r => r.type === 'expend')
+  return res.reduce((acc, cur) => acc + cur.amount, 0).toFixed(2)
+})
 const num = ref(Math.floor(Math.random() * 100))
 const line = 2 * Math.PI * 26
 
@@ -22,21 +34,21 @@ const dashArrayWidth = computed(() => ({
         <div class="info-item">
           <div>共计支出</div>
           <div class="base-amount">
-            <span>526</span>
-            <span>.00</span>
+            <span>{{ totalExpenses }}</span>
+            <!-- <span>.00</span> -->
           </div>
         </div>
         <div class="info-item">
           <div>记账笔数</div>
           <div class="base-amount">
-            12
+            {{ usuallyRecord.length }}
           </div>
         </div>
         <div class="info-item">
           <div>日均支出</div>
           <div class="base-amount">
-            <span>142</span>
-            <span>.00</span>
+            <span>{{ averageExpend }}</span>
+            <!-- <span>.00</span> -->
           </div>
         </div>
       </div>

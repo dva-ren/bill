@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import dayjs from 'dayjs'
 import { useMainStore } from '~/store'
 import { amountToArray } from '~/composables/amountFormat'
+
 useTitle('账单')
 const mainStore = useMainStore()
-
+const week = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
+const today = computed(() => dayjs().format(`M月D日 ${week[dayjs().day()]}`))
 const amountCount = computed(() => {
   let expend = 0; let income = 0
   mainStore.recordList.usually.forEach((item) => {
@@ -63,7 +66,7 @@ const amountCount = computed(() => {
               今天
             </div>
             <div style="flex:1">
-              8月3日 星期三
+              {{ today }}
             </div>
             <div class="info">
               <span>收</span>

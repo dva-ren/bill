@@ -33,5 +33,10 @@ export interface MultiUserRecord extends Record {
   users: string[]
 }
 
+export interface Person {
+  id: string
+  name: string
+  amount: number
+}
 // export type BillType = 'income' | 'expense'
 // export type Category = 'food' | 'transport' | 'other'

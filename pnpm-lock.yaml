@@ -9,6 +9,7 @@ specifiers:
   '@vue/test-utils': ^2.0.2
   '@vueuse/core': ^9.0.0
   animate.css: ^4.1.1
+  dayjs: ^1.11.5
   echarts: ^5.3.3
   eslint: ^8.20.0
   jsdom: ^20.0.0
@@ -31,6 +32,7 @@ specifiers:
 dependencies:
   '@vueuse/core': 9.0.0_vue@3.2.37
   animate.css: registry.npmmirror.com/animate.css/4.1.1
+  dayjs: registry.npmmirror.com/dayjs/1.11.5
   echarts: registry.npmmirror.com/echarts/5.3.3
   pinia: registry.npmmirror.com/pinia/2.0.17_j6bzmzd4ujpabbp5objtwxyjp4
   vue: 3.2.37
@@ -4682,6 +4684,12 @@ packages:
     dependencies:
       is-what: registry.npmmirror.com/is-what/3.14.1
     dev: true
+
+  registry.npmmirror.com/dayjs/1.11.5:
+    resolution: {integrity: sha512-CAdX5Q3YW3Gclyo5Vpqkgpj8fSdLQcRuzfX6mC6Phy0nfJ0eGYOeS7m4mt2plDWLAtA4TqTakvbboHvUxfe4iA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/dayjs/-/dayjs-1.11.5.tgz}
+    name: dayjs
+    version: 1.11.5
+    dev: false
 
   registry.npmmirror.com/debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/debug/-/debug-2.6.9.tgz}

@@ -95,6 +95,9 @@ onMounted(() => {
         <div ref="box" class="container">
           <div class="bill-list">
             <BillItem v-for="i in mainStore.recordList.multiUser" :key="i" />
+            <div v-if="mainStore.recordList.multiUser.length === 0" class="empty">
+              列表为空
+            </div>
           </div>
           <div class="bill-list">
             <div class="info-bar">
@@ -113,6 +116,9 @@ onMounted(() => {
             </div>
             <div>
               <BillItem v-for="i in mainStore.recordList.multiUser" :key="i" />
+              <div v-if="mainStore.recordList.multiUser.length === 0" class="empty">
+                列表为空
+              </div>
             </div>
           </div>
         </div>
@@ -180,6 +186,12 @@ onMounted(() => {
         display: inline-block;
         width: 100%;
         vertical-align: top;
+        .empty{
+          margin: 1rem 0;
+          text-align: center;
+          font-size: small;
+          color: @gray-1;
+        }
       }
     }
 

@@ -9,7 +9,6 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     BillItem: typeof import('./src/components/BillItem.vue')['default']
     CheckBox: typeof import('./src/components/m-input/CheckBox.vue')['default']
-    Date: typeof import('./src/components/Date.vue')['default']
     DatePicker: typeof import('./src/components/DatePicker.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
     InfoCard: typeof import('./src/components/InfoCard.vue')['default']

@@ -118,7 +118,6 @@ watch(inputValue, () => {
 
 <style scoped lang="less">
 .input-component{
-  margin: .8rem;
   position: relative;
   .label{
     margin-bottom: .6rem;

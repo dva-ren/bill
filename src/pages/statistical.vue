@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import * as echarts from 'echarts'
 import { categoryes } from '~/types'
+import { useMainStore } from '~/store'
+
+const mainStore = useMainStore()
 useTitle('账单统计')
 const main = ref()
 onMounted(
@@ -58,6 +61,27 @@ function init() {
   // 使用刚指定的配置项和数据显示图表。
   myChart.setOption(option)
 }
+// 总支出
+const totalExpenses = computed(() => {
+  const res = mainStore.recordList.usually.filter(r => r.type === 'expend')
+  return res.reduce((acc, cur) => acc + cur.amount, 0)
+})
+const categoryValue = computed(() => {
+  const res: any[] = []
+  for (const k in categoryes) {
+    const amount = mainStore.recordList.usually.reduce((count, item) => {
+      if (item.category === k)
+        count += item.amount
+      return count
+    }, 0)
+    res.push({
+      name: categoryes[k].name,
+      value: Math.floor(amount / totalExpenses.value * 100),
+      icon: categoryes[k].icon,
+    })
+  }
+  return res
+})
 </script>
 
 <template>
@@ -99,7 +123,7 @@ function init() {
           支出排行
         </div>
         <div class="item-container">
-          <div v-for="i, k in categoryes" :key="k" class="item">
+          <div v-for="i, idx in categoryValue" :key="idx" class="item">
             <div class="icon">
               <svg class="icon-font" aria-hidden="true">
                 <use :xlink:href="`#icon-${i.icon}`" />
@@ -107,10 +131,10 @@ function init() {
             </div>
             <div class="item-right">
               <div class="base-title">
-                {{ i.name }}&nbsp;&nbsp;{{ Math.floor(Math.random() * 100) }}%
+                {{ i.name }}&nbsp;&nbsp;{{ i.value }}%
               </div>
               <div class="process-bar">
-                <div class="bar" :style="{ width: `${Math.floor(Math.random() * 100)}%` }">
+                <div class="bar" :style="{ width: `${i.value}%` }">
                   <div />
                 </div>
               </div>
@@ -179,7 +203,6 @@ function init() {
 
           .bar {
             height: 100%;
-
             div {
               width: 100%;
               height: 100%;

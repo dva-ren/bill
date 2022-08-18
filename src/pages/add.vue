@@ -72,6 +72,11 @@ const onOptionClick = (o) => {
       <div class="form-item">
         <m-input v-model="form.remark" label="备注" placeholder="备注（可选）" type="text" />
       </div>
+      <div class="form-item">
+        <button class="add-person">
+          添加人员 +
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -101,7 +106,12 @@ const onOptionClick = (o) => {
 }
 .form{
   .form-item{
-
+    margin: .8rem;
+  }
+  .add-person{
+    border: 1px dashed @primary-4;
+    border-radius: .6rem;
+    padding: .2rem .6rem;
   }
 }
 .symbol{
