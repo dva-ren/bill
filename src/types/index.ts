@@ -30,7 +30,7 @@ export interface Record {
   remark?: string
 }
 export interface MultiUserRecord extends Record {
-  users: string[]
+  personnel: Person[]
 }
 
 export interface Person {

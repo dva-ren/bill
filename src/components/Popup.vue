@@ -23,7 +23,7 @@ const onAnimationend = (e) => {
 
 <template>
   <Teleport to="body">
-    <div v-show="props.modelValue" class="popup" @click="onPopupClick">
+    <div v-show="props.modelValue" class="popup" :style="{ backgroundColor: closed ? 'transparent' : 'rgba(0, 0, 0, 0.5)' }" @click="onPopupClick">
       <div class="content-container" :class="{ animate__fadeOut: closed }" @animationend="onAnimationend">
         <slot />
       </div>
@@ -38,8 +38,8 @@ const onAnimationend = (e) => {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
   z-index: 100;
+  transition: background-color .3s;
 }
 .content-container {
   bottom: 0;

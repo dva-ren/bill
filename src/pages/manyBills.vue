@@ -94,7 +94,7 @@ onMounted(() => {
         </div>
         <div ref="box" class="container">
           <div class="bill-list">
-            <BillItem v-for="i in mainStore.recordList.multiUser" :key="i" />
+            <BillItem v-for="i in mainStore.recordList.multiUser" :key="i.id" :data="i" />
             <div v-if="mainStore.recordList.multiUser.length === 0" class="empty">
               列表为空
             </div>
@@ -115,7 +115,7 @@ onMounted(() => {
               </div>
             </div>
             <div>
-              <BillItem v-for="i in mainStore.recordList.multiUser" :key="i" />
+              <BillItem v-for="i in mainStore.recordList.multiUser" :key="i.id" :data="i" />
               <div v-if="mainStore.recordList.multiUser.length === 0" class="empty">
                 列表为空
               </div>
@@ -179,6 +179,9 @@ onMounted(() => {
       overflow: auto;
       white-space: nowrap;
       scroll-behavior: smooth;
+      &::-webkit-scrollbar{
+        display: none;
+      }
       .bill-list{
         // height: 100%;
         padding: 1rem;

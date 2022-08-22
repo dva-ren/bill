@@ -1,13 +1,14 @@
 <script lang="ts" setup>
 import { useMainStore } from '~/store'
 import { categoryes } from '~/types'
-useTitle('添加记录')
+useTitle('添加记录-bill')
 const form = reactive({
   category: '',
   type: 'expend' as 'expend' | 'income',
   amount: 0,
   date: new Date().toLocaleDateString(),
   remark: '',
+  personnel: ['1', '2'] as string[],
 })
 const categoryValue = ref('')
 
@@ -16,6 +17,7 @@ const router = useRouter()
 const handleBack = () => {
   router.go(-1)
 }
+const selectVisible = ref(false)
 
 const options = computed(() => {
   const res: any[] = []
@@ -26,18 +28,38 @@ const options = computed(() => {
 const add = () => {
   if (form.amount === 0 || !form.category.length || !form.date)
     return
-  mainStore.addRecord('usually', {
-    id: new Date().getTime(),
-    category: categoryValue.value,
-    amount: form.amount,
-    date: form.date,
-    type: form.type,
-    remark: form.remark,
-  })
+  if (form.personnel.length === 0) {
+    mainStore.addRecord('usually', {
+      id: new Date().getTime(),
+      category: categoryValue.value,
+      amount: form.amount,
+      date: form.date,
+      type: form.type,
+      remark: form.remark,
+    })
+  }
+  else {
+    mainStore.addRecord('multiUser', {
+      id: new Date().getTime(),
+      category: categoryValue.value,
+      amount: form.amount,
+      date: form.date,
+      type: form.type,
+      remark: form.remark,
+      personnel: form.personnel,
+    })
+  }
   router.go(-1)
 }
 const onOptionClick = (o) => {
   categoryValue.value = o.value
+}
+const handleSelect = (p: string) => {
+  const index = form.personnel.indexOf(p)
+  if (index === -1)
+    form.personnel.push(p)
+  else
+    form.personnel.splice(index, 1)
 }
 </script>
 
@@ -73,10 +95,22 @@ const onOptionClick = (o) => {
         <m-input v-model="form.remark" label="备注" placeholder="备注（可选）" type="text" />
       </div>
       <div class="form-item">
-        <button class="add-person">
-          添加人员 +
-        </button>
+        <div class="person">
+          <div v-for="p in form.personnel" :key="p" class="item">
+            {{ p }}
+          </div>
+          <button class="item add-btn" @click="selectVisible = true">
+            添加人员 +
+          </button>
+        </div>
       </div>
+      <Popup v-model="selectVisible">
+        <div class="select-person">
+          <div v-for="p in 3" :key="p" class="person-item" :class="{ selected: form.personnel.includes(String(p)) }" @click="handleSelect(String(p))">
+            {{ p }}
+          </div>
+        </div>
+      </Popup>
     </div>
   </div>
 </template>
@@ -86,6 +120,7 @@ const onOptionClick = (o) => {
   position: relative;
   display: flex;
   border: 1px solid #2333;
+  user-select: none;
   div{
     z-index: 2;
     background-color: transparent;
@@ -98,23 +133,44 @@ const onOptionClick = (o) => {
     width: 50%;
     z-index: 1;
     position: absolute;
-    background-color: #2333;
+    background-color: @primary-3;
     border-radius: .4rem;
     transition: .1s;
-    box-shadow: 0 0 6px rgb(160, 160, 160);
+    box-shadow: inset 0 0 6px @primary-1;
   }
 }
 .form{
   .form-item{
     margin: .8rem;
   }
-  .add-person{
-    border: 1px dashed @primary-4;
+
+}
+.person{
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  .item{
     border-radius: .6rem;
+    border: 1px solid @primary-4;
     padding: .2rem .6rem;
   }
+  .add-btn{
+    border: 1px dashed @primary-4;
+  }
 }
-.symbol{
-
+.select-person{
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  .person-item{
+    width: 4rem;
+    line-height: 2rem;
+    text-align: center;
+    border: #2333 1px solid;
+  }
+  .selected{
+    background-color: @primary-4;
+  }
 }
 </style>

@@ -1,7 +1,9 @@
 <script lang="ts" setup>
+import dayjs from 'dayjs'
 import type { Record } from '~/types'
 import { categoryes } from '~/types'
 import { amountToArray } from '~/composables/amountFormat'
+
 const props = defineProps<{
   data: Record
 }>()
@@ -20,7 +22,7 @@ const amount = computed(() => amountToArray(props.data.amount))
       <div class="name">
         {{ props.data.remark || categoryes[props.data.category].name }}
       </div>
-      <div>{{ props.data.date }}</div>
+      <div>{{ dayjs(props.data.date).format('M-D') }}</div>
     </div>
     <div class="amount" :style="{ color: props.data.type === 'expend' ? '' : '#ed5a65' }">
       <span>{{ props.data.type === 'expend' ? '-' : '+' }}</span>
