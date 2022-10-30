@@ -15,7 +15,7 @@ declare module '@vue/runtime-core' {
     MInput: typeof import('./src/components/m-input/m-input.vue')['default']
     Navbar: typeof import('./src/components/Navbar.vue')['default']
     NumberKeyboard: typeof import('./src/components/m-input/NumberKeyboard.vue')['default']
-    Popup: typeof import('./src/components/Popup.vue')['default']
+    Popup: typeof import('./src/components/Popup/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Topbar: typeof import('./src/components/Topbar.vue')['default']

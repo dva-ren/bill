@@ -35,6 +35,7 @@ const date = ref([1, 1, 0, 0])
   padding: .5rem 0;
   display: flex;
   .number-container{
+    padding: 2.4rem 0;
     width: 100%;
     overflow-y: scroll;
     &::-webkit-scrollbar{

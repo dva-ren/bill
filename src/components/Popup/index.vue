@@ -1,12 +1,9 @@
 <script lang="ts" setup>
-const props = defineProps({
-  modelValue: {
-    type: Boolean,
-    required: true,
-  },
+import { popupProps } from './props'
 
-})
+const props = defineProps(popupProps)
 const emits = defineEmits(['update:modelValue'])
+
 const closed = ref(false)
 
 const onPopupClick = (e: MouseEvent) => {
@@ -24,7 +21,7 @@ const onAnimationend = (e) => {
 <template>
   <Teleport to="body">
     <div v-show="props.modelValue" class="popup" :style="{ backgroundColor: closed ? 'transparent' : 'rgba(0, 0, 0, 0.5)' }" @click="onPopupClick">
-      <div class="content-container" :class="{ animate__fadeOut: closed }" @animationend="onAnimationend">
+      <div class="content-container" :class="{ animate__fadeOut: closed }" :style="{ height: `${props.height}%` }" @animationend="onAnimationend">
         <slot />
       </div>
     </div>
@@ -46,7 +43,6 @@ const onAnimationend = (e) => {
   left: 0;
   width: 100%;
   position: absolute;
-  height: 40%;
   background-color: #fff;
   border-radius: .2rem;
   overflow: auto;
