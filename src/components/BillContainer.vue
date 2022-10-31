@@ -3,8 +3,9 @@ import dayjs from 'dayjs'
 import { useAmountCount } from '~/composables'
 import type { Record } from '~/types'
 
-const { data = [] } = defineProps({
+const { data = [], month = undefined } = defineProps({
   data: Array<Record>,
+  month: String,
 })
 const week = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
 const today = computed(() => dayjs().format(`M月D日 ${week[dayjs().day()]}`))
@@ -15,10 +16,10 @@ const amountCount = computed(() => useAmountCount(data))
   <div class="bill-list">
     <div class="info-bar">
       <div style="font-size: 1rem; color:#000;">
-        今天
+        {{ month ? `${month}月` : '今天' }}
       </div>
       <div style="flex:1">
-        {{ today }}
+        {{ month ? '' : today }}
       </div>
       <div class="info">
         <span>收</span>

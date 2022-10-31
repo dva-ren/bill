@@ -8,7 +8,7 @@ const form = reactive({
   amount: 0,
   date: new Date().toLocaleDateString(),
   remark: '',
-  personnel: ['1', '2'] as string[],
+  personnel: [] as string[],
 })
 const categoryValue = ref('')
 

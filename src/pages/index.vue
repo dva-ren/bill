@@ -3,7 +3,19 @@ import { amountToArray, useAmountCount } from '~/composables/amountFormat'
 import { useMainStore } from '~/store'
 useTitle('账单')
 const mainStore = useMainStore()
+const sortord = ref<'day' | 'month'>('day')
+
 const amountCount = computed(() => useAmountCount(mainStore.recordList.usually))
+const monthRecord = computed(() => {
+  const res = {}
+  mainStore.recordList.usually.forEach((i) => {
+    const m = new Date(i.date).getMonth() + 1
+    if (!res[m])
+      res[m] = []
+    res[m].push(i)
+  })
+  return res
+})
 </script>
 
 <template>
@@ -42,14 +54,15 @@ const amountCount = computed(() => useAmountCount(mainStore.recordList.usually))
       </div>
       <div class="bill-container">
         <div class="select">
-          <button class="active">
+          <button :class="{ active: sortord === 'day' }" @click="sortord = 'day'">
             最新
           </button>
-          <button>
+          <button :class="{ active: sortord === 'month' }" @click="sortord = 'month'">
             按月份
           </button>
         </div>
-        <BillContainer :data="mainStore.recordList.usually" />
+        <BillContainer v-if="sortord === 'day'" :data="mainStore.recordList.usually" />
+        <BillContainer v-for="m, idx of monthRecord" v-else :key="m" my-2 :data="monthRecord[idx]" :month="idx" />
       </div>
     </div>
   </div>
