@@ -1,27 +1,14 @@
 <script setup lang="ts">
-import dayjs from 'dayjs'
+import { amountToArray, useAmountCount } from '~/composables/amountFormat'
 import { useMainStore } from '~/store'
-import { amountToArray } from '~/composables/amountFormat'
-
 useTitle('账单')
 const mainStore = useMainStore()
-const week = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
-const today = computed(() => dayjs().format(`M月D日 ${week[dayjs().day()]}`))
-const amountCount = computed(() => {
-  let expend = 0; let income = 0
-  mainStore.recordList.usually.forEach((item) => {
-    if (item.type === 'expend')
-      expend += item.amount
-    else
-      income += item.amount
-  })
-  return { expend, income }
-})
+const amountCount = computed(() => useAmountCount(mainStore.recordList.usually))
 </script>
 
 <template>
   <div class="box">
-    <Topbar title="账单" />
+    <Topbar title="账单" style="color: white;" />
     <Navbar />
     <div class="bill">
       <div style="font-size: small;margin-bottom: .5rem;">
@@ -58,27 +45,11 @@ const amountCount = computed(() => {
           <button class="active">
             最新
           </button>
-          <button>按月份</button>
+          <button>
+            按月份
+          </button>
         </div>
-        <div class="bill-list">
-          <div class="info-bar">
-            <div style="font-size: 1rem; color:#000;">
-              今天
-            </div>
-            <div style="flex:1">
-              {{ today }}
-            </div>
-            <div class="info">
-              <span>收</span>
-              <span class="amount">{{ amountCount.income }}</span>
-              <span>支</span>
-              <span class="amount">{{ amountCount.expend }}</span>
-            </div>
-          </div>
-          <div>
-            <BillItem v-for="i in mainStore.recordList.usually" :key="i.id" :data="i" />
-          </div>
-        </div>
+        <BillContainer :data="mainStore.recordList.usually" />
       </div>
     </div>
   </div>
@@ -127,6 +98,7 @@ const amountCount = computed(() => {
       color: gray-1;
       font-size: @font-size-sm;
       margin: .6rem 0;
+      color: gray;
       button{
         width: 3rem;
       }
@@ -135,21 +107,6 @@ const amountCount = computed(() => {
         font-size: @font-size-base;
         color: @gray-10;
       }
-    }
-    .info-bar{
-      display: flex;
-      gap: .5rem;
-      align-items: flex-end;
-      font-size: @font-size-xs;
-      color: @gray-0;
-      .amount{
-        color:@gray-1;
-        margin: 0 .5rem 0 .2rem;
-      }
-    }
-    .bill-list{
-      padding: 1rem;
-      background-color: #fff;
     }
   }
 }
