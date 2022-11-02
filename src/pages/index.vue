@@ -16,6 +16,8 @@ const monthRecord = computed(() => {
   })
   return res
 })
+
+const isEmpty = computed(() => mainStore.recordList.usually.length === 0)
 </script>
 
 <template>
@@ -61,8 +63,11 @@ const monthRecord = computed(() => {
             按月份
           </button>
         </div>
-        <BillContainer v-if="sortord === 'day'" :data="mainStore.recordList.usually" />
-        <BillContainer v-for="m, idx of monthRecord" v-else :key="m" my-2 :data="monthRecord[idx]" :month="idx" />
+        <template v-if="!isEmpty">
+          <BillContainer v-if="sortord === 'day'" :data="mainStore.recordList.usually" />
+          <BillContainer v-for="m, idx of monthRecord" v-else :key="m" my-2 :data="monthRecord[idx]" :month="idx" />
+        </template>
+        <Empty v-if="isEmpty" />
       </div>
     </div>
   </div>

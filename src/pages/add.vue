@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import dayjs from 'dayjs'
 import { useMainStore } from '~/store'
 import { categoryes } from '~/types'
 useTitle('添加记录-bill')
@@ -6,7 +7,7 @@ const form = reactive({
   category: '',
   type: 'expend' as 'expend' | 'income',
   amount: 0,
-  date: new Date().toLocaleDateString(),
+  date: dayjs().format('MM-DD hh:mm'),
   remark: '',
   personnel: [] as string[],
 })

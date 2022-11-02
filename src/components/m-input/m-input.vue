@@ -111,7 +111,7 @@ watch(inputValue, () => {
       </div>
     </div>
     <Popup v-if="props.type === 'date'" v-model="showPopup">
-      <DatePicker @change="handleChange" />
+      <DatePicker :default-value="new Date()" @change="handleChange" />
     </Popup>
   </div>
 </template>
