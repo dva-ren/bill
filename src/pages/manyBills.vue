@@ -46,12 +46,6 @@ const addEvent = () => {
 }
 onMounted(() => {
   addEvent()
-  // box.value?.addEventListener('scroll', () => {
-  //   if (box.value?.scrollLeft > 80 || box.value?.scrollLeft < 120)
-  //     box.value?.scrollTo(500, 0)
-  //   else if (box.value?.scrollLeft < 120 || box.value?.scrollLeft > 80)
-  //     box.value?.scrollTo(0, 0)
-  // })
 })
 </script>
 

@@ -19,7 +19,7 @@ const handleBack = () => {
   router.go(-1)
 }
 const selectVisible = ref(false)
-
+const isShow = ref(false)
 const options = computed(() => {
   const res: any[] = []
   for (const k of Object.keys(categoryes))
@@ -27,8 +27,13 @@ const options = computed(() => {
   return res
 })
 const add = () => {
-  if (form.amount === 0 || !form.category.length || !form.date)
+  if (form.amount === 0 || !form.category.length || !form.date) {
+    isShow.value = true
+    setTimeout(() => {
+      isShow.value = false
+    }, 1500)
     return
+  }
   if (form.personnel.length === 0) {
     mainStore.addRecord('usually', {
       id: new Date().getTime(),
@@ -66,6 +71,7 @@ const handleSelect = (p: string) => {
 
 <template>
   <div>
+    <Toast content="参数不正确" :show="isShow" />
     <Topbar title="添加记录" :back="true" :finish="true" @on-back="handleBack" @on-finish="add" />
     <div class="type">
       <div @click="form.type = 'expend'">

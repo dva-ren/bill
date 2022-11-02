@@ -20,6 +20,7 @@ declare module '@vue/runtime-core' {
     Popup: typeof import('./src/components/Popup/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Toast: typeof import('./src/components/Toast.vue')['default']
     Topbar: typeof import('./src/components/Topbar.vue')['default']
   }
 }
