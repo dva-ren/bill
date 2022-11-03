@@ -44,6 +44,13 @@ const addEvent = () => {
     }
   })
 }
+const start = ref(0)
+const handleTouchEnd = (person, e: Event) => {
+  e.preventDefault()
+  const diff = Date.now() - start.value
+  if (diff > 500)
+    mainStore.removePerson(person)
+}
 onMounted(() => {
   addEvent()
 })
@@ -55,25 +62,11 @@ onMounted(() => {
     <Navbar />
     <div class="bill">
       <div class="count">
-        <div class="count-card">
-          <div>xxx</div>
+        <div v-for="p in mainStore.person" :key="p.id" class="count-card" @touchstart="start = Date.now()" @touchend="handleTouchEnd(p, $event)">
+          <div>{{ p.name }}</div>
           <div class="base-amount money amount">
-            <span>6666</span>
-            <span>.26</span>
-          </div>
-        </div>
-        <div class="count-card">
-          <div>xxx</div>
-          <div class="base-amount money amount">
-            <span>6666</span>
-            <span>.26</span>
-          </div>
-        </div>
-        <div class="count-card">
-          <div>xxx</div>
-          <div class="base-amount money amount">
-            <span>6666</span>
-            <span>.26</span>
+            <span>{{ amountToArray(p.amount)[0] }}</span>
+            <span>.{{ amountToArray(p.amount)[1] }}</span>
           </div>
         </div>
       </div>

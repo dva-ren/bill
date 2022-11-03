@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import dayjs from 'dayjs'
 import { useMainStore } from '~/store'
+import type { Person } from '~/types'
 import { categoryes } from '~/types'
 useTitle('添加记录-bill')
 const form = reactive({
@@ -9,7 +10,7 @@ const form = reactive({
   amount: 0,
   date: dayjs().format('MM-DD hh:mm'),
   remark: '',
-  personnel: [] as string[],
+  personnel: [] as Person[],
 })
 const categoryValue = ref('')
 const name = ref('')
@@ -40,7 +41,7 @@ const add = () => {
     return
   }
   if (form.personnel.length === 0) {
-    mainStore.addRecord('usually', {
+    mainStore.addRecord({
       id: new Date().getTime(),
       category: categoryValue.value,
       amount: form.amount,
@@ -50,7 +51,7 @@ const add = () => {
     })
   }
   else {
-    mainStore.addRecord('multiUser', {
+    mainStore.addMultiUserRecord({
       id: new Date().getTime(),
       category: categoryValue.value,
       amount: form.amount,
@@ -65,7 +66,7 @@ const add = () => {
 const onOptionClick = (o) => {
   categoryValue.value = o.value
 }
-const handleSelect = (p: string) => {
+const handleSelect = (p: Person) => {
   const index = form.personnel.indexOf(p)
   if (index === -1)
     form.personnel.push(p)
@@ -121,8 +122,8 @@ const handleInputBlur = () => {
       </div>
       <div class="form-item">
         <div class="person">
-          <div v-for="p in form.personnel" :key="p" class="item">
-            {{ p }}
+          <div v-for="p in form.personnel" :key="p.id" class="item">
+            {{ p.name }}
           </div>
           <button class="item add-btn" @click="selectVisible = true">
             人员选择
@@ -131,7 +132,7 @@ const handleInputBlur = () => {
       </div>
       <Popup v-model="selectVisible">
         <div class="select-person">
-          <div v-for="p in mainStore.person" :key="p.id" class="person-item" :class="{ selected: form.personnel.includes(p.name) }" @click="handleSelect(p.name)">
+          <div v-for="p in mainStore.person" :key="p.id" class="person-item" :class="{ selected: form.personnel.includes(p) }" @click="handleSelect(p)">
             {{ p.name }}
           </div>
           <input v-if="showInput" ref="nameInput" v-model="name" type="text" class="person-item" @blur="handleInputBlur">
