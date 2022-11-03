@@ -37,5 +37,13 @@ export const useMainStore = defineStore('main', {
       this.$state.person.push(person)
       localStorage.setItem('person', JSON.stringify(this.$state.person))
     },
+    addNewPerson(name: string) {
+      this.$state.person.push({
+        id: Date.now().toString(),
+        name,
+        amount: 0,
+      })
+      localStorage.setItem('person', JSON.stringify(this.$state.person))
+    },
   },
 })

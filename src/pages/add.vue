@@ -12,6 +12,8 @@ const form = reactive({
   personnel: [] as string[],
 })
 const categoryValue = ref('')
+const name = ref('')
+const showInput = ref(false)
 
 const mainStore = useMainStore()
 const router = useRouter()
@@ -20,12 +22,15 @@ const handleBack = () => {
 }
 const selectVisible = ref(false)
 const isShow = ref(false)
+const nameInput = ref<HTMLElement>()
+
 const options = computed(() => {
   const res: any[] = []
   for (const k of Object.keys(categoryes))
     res.push({ name: categoryes[k].name, value: k })
   return res
 })
+
 const add = () => {
   if (form.amount === 0 || !form.category.length || !form.date) {
     isShow.value = true
@@ -67,6 +72,19 @@ const handleSelect = (p: string) => {
   else
     form.personnel.splice(index, 1)
 }
+const onAddNameClick = () => {
+  showInput.value = true
+  nextTick(() => {
+    nameInput.value?.focus()
+  })
+}
+const handleInputBlur = () => {
+  if ((name.value.trim() ?? '') === '')
+    return
+  mainStore.addNewPerson(name.value)
+  name.value = ''
+  showInput.value = false
+}
 </script>
 
 <template>
@@ -107,15 +125,19 @@ const handleSelect = (p: string) => {
             {{ p }}
           </div>
           <button class="item add-btn" @click="selectVisible = true">
-            添加人员 +
+            人员选择
           </button>
         </div>
       </div>
       <Popup v-model="selectVisible">
         <div class="select-person">
-          <div v-for="p in 3" :key="p" class="person-item" :class="{ selected: form.personnel.includes(String(p)) }" @click="handleSelect(String(p))">
-            {{ p }}
+          <div v-for="p in mainStore.person" :key="p.id" class="person-item" :class="{ selected: form.personnel.includes(p.name) }" @click="handleSelect(p.name)">
+            {{ p.name }}
           </div>
+          <input v-if="showInput" ref="nameInput" v-model="name" type="text" class="person-item" @blur="handleInputBlur">
+          <button v-if="!showInput" btn @click="onAddNameClick">
+            添加人员 +
+          </button>
         </div>
       </Popup>
     </div>
